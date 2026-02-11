@@ -56,6 +56,7 @@ K	Hover Documentation	LSP
 Plaintext
 
 ![config overview](./screenshots/nvim-overview.png)
+
 ~/.config/nvim/
 ├── init.lua          # Main entry point & Bootstrap
 └── lua/
