@@ -1,16 +1,29 @@
-Markdown
-
 # 🚀 Modern Neovim Config (Arch Linux Based)
 
 A modular, fast, and aesthetics-focused Neovim configuration built with **Lazy.nvim**. This setup is optimized for Python development and lightning-fast project navigation.
+
+![nvim bar overview](./screenshots/nvimbar-y.png)
 
 ## 🛠️ Features
 
 - **Package Manager**: [Lazy.nvim](https://github.com/folke/lazy.nvim) for blazing fast startup.
 - **LSP Support**: Full IDE-like features via `nvim-lspconfig`.
 - **Python Integration**: Specialized setup for `Pyright` (autocompletion, type checking).
+
+
+![python overview](./screenshots/nvim-py.png)
+  
 - **Advanced Search**: [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) for fuzzy finding and live grep.
 - **UI Enhancements**: Rounded borders, diagnostic icons, and Nerd Font support.
+
+
+![neovim config overview](./screenshots/nvim1.png)
+
+![config overview](./screenshots/nvim2.png)
+
+![config overview](./screenshots/nvim4.png)
+
+![config overview](./screenshots/nvimbar-x.png)
 
 ## 📦 Prerequisites
 
@@ -22,21 +35,17 @@ sudo pacman -S neovim ripgrep fd git
 
 # Python LSP server
 npm install -g pyright
-
-# Recommended: A Nerd Font for icons (e.g., JetBrainsMono Nerd Font)
-# pacman -S ttf-jetbrains-mono-nerd
-
 🚀 Installation
 
     Clone this repository into your Neovim configuration directory:
 
-#Bash
+Bash
 
-git clone https://github.com/monamijer/nvim-conf.git ~/.config/nvim
+git clone [https://github.com/monamijer/nvim-conf.git](https://github.com/monamijer/nvim-conf.git) ~/.config/nvim
 
     Launch Neovim:
 
-#Bash
+Bash
 
 nvim
 
@@ -53,9 +62,7 @@ K	Hover Documentation	LSP
 <Leader>rn	Smart Rename	LSP
 <Leader>ca	Code Actions	LSP
 📂 Project Structure
-
-![config overview](./screenshots/nvim-overview.png)
-
+Plaintext
 
 ~/.config/nvim/
 ├── init.lua          # Main entry point & Bootstrap
@@ -76,6 +83,10 @@ Contributions are welcome! To contribute:
 
     Push to the branch (git push origin feature/AmazingFeature).
 
-    Open a Pull Request.
+    Open a Pull Request.```
 
-Built with ❤️ for the Arch Linux community.
+```
+
+
+
+# Built with ❤️ for the Arch Linux community. 
