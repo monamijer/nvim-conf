@@ -55,6 +55,7 @@ K	Hover Documentation	LSP
 📂 Project Structure
 Plaintext
 
+![config overview](./screenshots/nvim-overview.png)
 ~/.config/nvim/
 ├── init.lua          # Main entry point & Bootstrap
 └── lua/
