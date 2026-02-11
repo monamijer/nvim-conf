@@ -30,13 +30,13 @@ npm install -g pyright
 
     Clone this repository into your Neovim configuration directory:
 
-Bash
+#Bash
 
-git clone https://github.com/monamijer/nvim-conf.git) ~/.config/nvim
+git clone https://github.com/monamijer/nvim-conf.git ~/.config/nvim
 
     Launch Neovim:
 
-Bash
+#Bash
 
 nvim
 
