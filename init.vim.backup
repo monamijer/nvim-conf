@@ -1,0 +1,122 @@
+" ============================================================================
+" 1. GENERAL SETTINGS & PLUGINS
+" ============================================================================
+set nocompatible
+filetype plugin indent on
+syntax on
+
+let mapleader = " "
+
+call plug#begin('~/.local/share/nvim/plugged')
+" Intelligence & AI
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'github/copilot.vim'
+Plug 'mattn/emmet-vim'
+
+" UI & Aesthetics
+Plug 'folke/tokyonight.nvim'
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
+
+" Utilities (Inspired by jdhao)
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'tpope/vim-commentary' " Facilite les commentaires avec 'gcc'
+Plug 'windwp/nvim-autopairs' " Ferme automatiquement les parenthèses/guillemets
+call plug#end()
+
+" ============================================================================
+" 2. PRO SETTINGS (Adapted from jdhao)
+" ============================================================================
+set number relativenumber
+set termguicolors
+set mouse=a
+set tabstop=2 shiftwidth=2 expandtab
+set ignorecase smartcase
+set scrolloff=8           " Garde 8 lignes visibles lors du scroll
+set sidescrolloff=10      " Garde 10 colonnes visibles lors du scroll horizontal
+set splitbelow splitright " Les nouveaux splits s'ouvrent en bas et à droite
+set hidden                " Permet de changer de fichier sans sauvegarder
+set nobackup nowritebackup" Réduit les micro-lags
+set updatetime=300        " Plus réactif pour les erreurs ESLint
+set signcolumn=yes        " Toujours afficher la colonne des icônes d'erreur
+set clipboard=unnamedplus " Utilise le presse-papier du système
+
+colorscheme tokyonight-night
+
+" ============================================================================
+" 3. PRODUCTIVITY MAPPINGS (The best of jdhao)
+" ============================================================================
+" Quick Save & Quit
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>Q :qa!<CR>
+
+" Copy entire buffer to clipboard (Super useful!)
+nnoremap <leader>y :%y+<CR>
+
+" Visual mode: Stay in visual mode after indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Navigation between Tabs (Shift + H/L)
+nnoremap <S-l> :BufferLineCycleNext<CR>
+nnoremap <S-h> :BufferLineCyclePrev<CR>
+
+" Telescope (Searching)
+nnoremap <leader>ff :Telescope find_files<CR>
+nnoremap <leader>fg :Telescope live_grep<CR>
+nnoremap <leader>fb :Telescope buffers<CR>
+
+" Splits & Navigation
+nnoremap <leader>v :vsplit<CR>
+nnoremap <A-Left> <C-w>h
+nnoremap <A-Down> <C-w>j
+nnoremap <A-Up> <C-w>k
+nnoremap <A-Right> <C-w>l
+
+" ============================================================================
+" 4. CUSTOM COMMANDS (jdhao style)
+" ============================================================================
+" Copy relative path of current file to clipboard
+command! CopyPath let @+ = expand('%') | echo "Path copied: " . expand('%')
+nnoremap <leader>cp :CopyPath<CR>
+
+" Clean trailing white spaces
+nnoremap <leader><Space> :%s/\s\+$//e<CR>
+
+" ============================================================================
+" 5. SUPER TAB & AUTO-FORMAT
+" ============================================================================
+let g:copilot_no_tab_map = v:true
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ exists('b:_copilot.suggestions') ? copilot#Accept("\<CR>") :
+      \ "\<TAB>"
+
+" Format on save
+autocmd BufWritePre *.js,*.ts,*.json,*.html :CocCommand prettier.forceFormatDocument
+autocmd BufWritePre *.js,*.ts :CocCommand eslint.executeAutofix
+
+" ============================================================================
+" 6. LUA CONFIGS
+" ============================================================================
+lua << EOF
+require('lualine').setup()
+require('nvim-tree').setup({ view = { width = 30 } })
+require('bufferline').setup{}
+require('nvim-autopairs').setup{}
+require("tokyonight").setup({
+  style = "night", -- Choose between night, storm, moon, or day
+  transparent = false, -- Set to true if you want your terminal background to show through
+  terminal_colors = true,
+  styles = {
+    comments = { italic = true },
+    keywords = { italic = true },
+    functions = {},
+    variables = {},
+  },
+})
+EOF
