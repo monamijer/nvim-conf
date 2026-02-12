@@ -1,5 +1,5 @@
 #files in root
-init.vim.backup
+/init.vim.backup
 
 # Compiled Lua sources
 luac.out
