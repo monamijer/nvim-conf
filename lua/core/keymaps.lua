@@ -15,10 +15,15 @@ keymap.set("i", "<C-z>", "<C-O>u", { desc = "Undo in insert mode" })
 -- GitHub Copilot: Use Ctrl+J to accept (to avoid Tab conflicts with CMP)
 -- We set this here, but ensure 'copilot.lua' or 'copilot.vim' is installed.
 keymap.set("i", "<C-j>", function()
-  if require("copilot.suggestion").is_visible() then
-    require("copilot.suggestion").accept()
+  local ok, suggestion = pcall(require, "copilot.suggestion")
+  if ok and suggestion.is_visible() then
+    suggestion.accept()
   else
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-j>", true, true, true), "n", false)
+    vim.api.nvim_feedkeys(
+      vim.api.nvim_replace_termcodes("<C-j>", true, true, true),
+      "n",
+      false
+    )
   end
 end, { desc = "Copilot Accept" })
 -- =============================================================================
