@@ -43,6 +43,12 @@ keymap.set("n", "<A-Down>", "<C-w>j", { desc = "Move to bottom split" })
 keymap.set("n", "<A-Up>", "<C-w>k", { desc = "Move to top split" })
 keymap.set("n", "<A-Right>", "<C-w>l", { desc = "Move to right split" })
 
+-- Resize split
+keymap.set("n", "<C-Up>", ":resize -2<CR>", { desc = "Resize up" })
+keymap.set("n", "<C-Down>", ":resize +2<CR>", { desc = "Resize down" })
+keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Resize left" })
+keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Resize right" })
+
 -- Using 'v' for Vertical and 's' for Horizontal
 keymap.set("n", "<leader>v", ":vsplit<CR>", { desc = "Split Vertically", silent = true })
 keymap.set("n", "<leader>s", ":split<CR>", { desc = "Split Horizontally", silent = true })
@@ -64,6 +70,10 @@ keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
 keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
+-- search file and grep in all files 
+keymap.set("n", "<leader>fg", require("telescope.builtin").live_grep, { desc = "Live grep" })
+keymap.set("n", "<leader>fw", require("telescope.builtin").grep_string, { desc = "Search word" })
+
 -- =============================================================================
 -- TERMINAL MAPPINGS
 -- =============================================================================
@@ -77,11 +87,20 @@ function _G.set_terminal_keymaps()
   vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
   vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
   vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {})
   vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
   vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-  vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, {})
+  vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], opts)
 end
 
--- Apply these mappings only when a terminal is open
-vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+-- =============================================================================
+-- AUTOCOMMANDS
+-- =============================================================================
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "term://*",
+  callback = set_terminal_keymaps,
+})
+
+vim.api.nvim_create_autocmd("FocusLost", {
+  command = "silent! wa",
+})
