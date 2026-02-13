@@ -11,6 +11,8 @@ keymap.set({ "n", "i", "v" }, "<C-s>", "<cmd>w<cr><ESC>", { desc = "Save file" }
 -- Note: This replaces the default 'Suspend' behavior
 keymap.set("n", "<C-z>", "u", { desc = "Undo" })
 keymap.set("i", "<C-z>", "<C-O>u", { desc = "Undo in insert mode" })
+keymap.set("n", "<C-y>", "<C-r>", { desc = "Redo" })
+keymap.set("i", "<C-y>", "<C-o><C-r>", { desc = "Redo in insert mode" })
 
 -- GitHub Copilot: Use Ctrl+J to accept (to avoid Tab conflicts with CMP)
 -- We set this here, but ensure 'copilot.lua' or 'copilot.vim' is installed.
