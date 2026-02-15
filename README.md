@@ -188,13 +188,21 @@ Leader key = **Space**
 
 ```
 ~/.config/nvim/
-├── init.lua
-└── lua/
-    ├── keymaps.lua
-    ├── utils.lua
-    └── plugin/
-        ├── lsp.lua
-        └── ui.lua
+├── init.lua                      # Main entry point loaded by Neovim
+├── lazy-lock.json                # Lazy.nvim lockfile
+├── coc-settings.json             # Copilot / CoC settings
+├── README.md                     # Project documentation
+├── LICENSE                       # License file
+├── screenshots/                  # UI and showcase screenshots
+└── lua/                          # Lua configuration modules
+      ├── core/
+      │   ├── keymaps.lua
+      │   ├── options.lua
+      ├── plugins/
+      │   ├── ui.lua
+      │   ├── lsp.lua
+      │   └── utils.lua
+      
 ```
 
 ---
