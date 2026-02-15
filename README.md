@@ -1,21 +1,98 @@
-# 🚀 Modern Neovim Config (Arch Linux Based)
+# 🚀 Modern Neovim IDE Config (Arch Linux Based)
 
-A modular, fast, and aesthetics-focused Neovim configuration built with **Lazy.nvim**. This setup is optimized for Python development and lightning-fast project navigation.
+A modular, fast, and aesthetics-focused Neovim configuration built with **Neovim** and **Lazy.nvim**.
+
+This setup aims to feel like a **next-generation IDE** — smooth, dynamic, visually rich — while staying lightweight and hackable.
+
+It now includes:
+
+✅ VS Code-like sidebar & terminal behavior
+✅ Smooth animations
+✅ AI assistance
+✅ Modern UI components
+✅ Advanced navigation & search
+✅ Python-ready IDE workflow
+
+---
 
 ![nvim bar overview](./screenshots/nvimbar-y.png)
 
+---
+
 ## 🛠️ Features
 
-- **Package Manager**: [Lazy.nvim](https://github.com/folke/lazy.nvim) for blazing fast startup.
-- **LSP Support**: Full IDE-like features via `nvim-lspconfig`.
-- **Python Integration**: Specialized setup for `Pyright` (autocompletion, type checking).
+### ⚡ Core IDE Experience
 
+* **Plugin Manager**: Lazy.nvim — ultra fast startup & lazy loading
+* **LSP Integration** — IDE-style diagnostics, navigation & refactoring
+* **Python Support** via Pyright (type checking + completion)
+
+---
+
+### 🔍 Advanced Navigation
+
+* **Telescope.nvim**
+
+  * fuzzy file search
+  * live grep
+  * buffer navigation
+  * recent files
+
+---
+
+### 🧠 AI Coding Assistant
+
+* **GitHub Copilot**
+
+  * inline suggestions
+  * smart acceptance keymaps
+  * safe loading
+
+---
+
+### 🎨 Modern UI System
+
+* **TokyoNight theme**
+* Dashboard welcome screen
+* Dynamic statusline
+* Buffer tabs
+* Scroll animations
+* Visual git indicators
+* Treesitter highlighting & smart indentation
+* Autopairs
+* Keymap helper popups
+
+---
+
+### 📁 Sidebar & Terminal (IDE-style)
+
+* **nvim-tree.lua**
+
+  * adaptive width
+  * icons + git status
+  * collapsible navigation
+
+* **toggleterm.nvim**
+
+  * floating or bottom terminal
+  * resizable
+  * persistent sessions
+
+---
 
 ![python overview](./screenshots/nvim-py.png)
-  
-- **Advanced Search**: [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) for fuzzy finding and live grep.
-- **UI Enhancements**: Rounded borders, diagnostic icons, and Nerd Font support.
 
+---
+
+### 🧬 Syntax Intelligence
+
+* **nvim-treesitter**
+
+  * modern highlighting
+  * incremental selection
+  * indentation awareness
+
+---
 
 ![neovim config overview](./screenshots/nvim1.png)
 
@@ -25,9 +102,11 @@ A modular, fast, and aesthetics-focused Neovim configuration built with **Lazy.n
 
 ![config overview](./screenshots/nvimbar-x.png)
 
+---
+
 ## 📦 Prerequisites
 
-Ensure the following are installed on your Arch Linux system:
+Install dependencies on Arch Linux:
 
 ```bash
 # Core tools
@@ -35,62 +114,115 @@ sudo pacman -S neovim ripgrep fd git
 
 # Python LSP server
 npm install -g pyright
-🚀 Installation
-
-    Clone this repository into your Neovim configuration directory:
-
-Bash
-
-git clone https://github.com/monamijer/nvim-conf.git ~/.config/nvim
-
-# Or if you use ssh
-
-git clone git@github.com:monamijer/nvim-cong.git ~/.config/nvim
-
-    Launch Neovim:
-
-Bash $
-
-nvim
-
-Plugins will be automatically installed on the first launch.
-⌨️ Keybindings
-
-The Leader key is set to Space.
-Key	Action	Plugin
-<Leader>ff	Find Files by name	Telescope
-<Leader>fg	Live Grep (search text in files)	Telescope
-<Leader>fw	Search word under cursor	Telescope
-gd	Go to Definition	LSP
-K	Hover Documentation	LSP
-<Leader>rn	Smart Rename	LSP
-<Leader>ca	Code Actions	LSP
-📂 Project Structure
-Plaintext
-
-~/.config/nvim/
-├── init.lua          # Main entry point & Bootstrap
-└── lua/
-    └── plugin/       # Modular plugin configurations
-        ├── lsp.lua   # Language Server settings
-        └── search.lua # Navigation & Fuzzy finder
-
-🤝 Contributing
-
-Contributions are welcome! To contribute:
-
-    Fork the project.
-
-    Create a Feature Branch (git checkout -b feature/AmazingFeature).
-
-    Commit your changes (git commit -m 'Add some AmazingFeature').
-
-    Push to the branch (git push origin feature/AmazingFeature).
-
-    Open a Pull Request.```
-
 ```
 
+---
 
+## 🚀 Installation
 
-# Built with ❤️ for the Arch Linux community. 
+Clone into your Neovim config directory:
+
+```bash
+git clone https://github.com/monamijer/nvim-conf.git ~/.config/nvim
+
+# or SSH
+git clone git@github.com:monamijer/nvim-cong.git ~/.config/nvim
+```
+
+Launch Neovim:
+
+```bash
+nvim
+```
+
+Plugins install automatically on first run.
+
+---
+
+## ⌨️ Keybindings
+
+Leader key = **Space**
+
+### Navigation & Search
+
+| Key          | Action         |
+| ------------ | -------------- |
+| `<leader>ff` | Find files     |
+| `<leader>fg` | Live grep      |
+| `<leader>fw` | Search word    |
+| `<leader>fb` | Buffers        |
+| `<C-b>`      | Toggle sidebar |
+
+---
+
+### LSP IDE Controls
+
+| Key          | Action           |
+| ------------ | ---------------- |
+| `gd`         | Go to definition |
+| `K`          | Hover docs       |
+| `<leader>rn` | Rename symbol    |
+| `<leader>ca` | Code actions     |
+
+---
+
+### Terminal
+
+| Key                    | Action          |
+| ---------------------- | --------------- |
+| `<C-\>` or `<leader>t` | Toggle terminal |
+
+---
+
+### Editing Enhancements
+
+| Key               | Action                    |
+| ----------------- | ------------------------- |
+| `<C-s>`           | Save                      |
+| `<C-z>` / `<C-y>` | Undo / redo               |
+| `<M-l>`           | Accept Copilot suggestion |
+
+---
+
+## 📂 Project Structure
+
+```
+~/.config/nvim/
+├── init.lua
+└── lua/
+    ├── keymaps.lua
+    ├── utils.lua
+    └── plugin/
+        ├── lsp.lua
+        └── ui.lua
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome!
+
+1. Fork the repo
+2. Create branch
+3. Commit changes
+4. Push
+5. Open PR
+
+---
+
+## ✨ Philosophy
+
+This config aims to blend:
+
+⚡ Neovim speed
+🎨 modern UI polish
+🧠 IDE intelligence
+🚀 developer ergonomics
+
+All without sacrificing modularity or performance.
+
+---
+
+Enjoy hacking your editor.
+Make it yours. 🚀
