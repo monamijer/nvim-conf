@@ -1,17 +1,16 @@
 # 🚀 Modern Neovim IDE Config
 
-A modular, fast, and aesthetics-focused Neovim configuration built with **Neovim** and **Lazy.nvim**.
+A modular, fast, and aesthetics-focused configuration built on Neovim with Lazy.nvim.
 
-This setup aims to feel like a **next-generation IDE** — smooth, dynamic, visually rich — while staying lightweight, hackable, and cross-platform.
+This project transforms Neovim into a **modern, dynamic IDE** — inspired by VS Code ergonomics — while preserving Neovim’s speed, hackability, and philosophy.
 
-It is designed for developers who want:
+Designed for developers who want:
 
-✅ VS Code-like sidebar & terminal behavior
-✅ Smooth animations
+✅ IDE-like navigation & workflow
+✅ smooth UI and animations
 ✅ AI assistance
-✅ Modern UI components
-✅ Advanced navigation & search
-✅ Python-ready IDE workflow
+✅ modern developer ergonomics
+✅ cross-platform usability
 
 ---
 
@@ -19,80 +18,77 @@ It is designed for developers who want:
 
 ---
 
-## 🛠️ Features
+# 🔗 Source Code
+
+👉 **Project Repository**
+https://github.com/monamijer/nvim-conf
+
+Browse the full configuration, commit history, and modules — everything is readable, hackable, and designed to teach.
+
+---
+
+## ✨ Features Overview
 
 ### ⚡ Core IDE Experience
 
-* Ultra-fast plugin management via Lazy.nvim
-* LSP integration for diagnostics & refactoring
+* Fast plugin management via Lazy.nvim
+* Built-in LSP workflow
 * Python development via Pyright
-* Smart editing workflow
+* ergonomic keybindings
 
 ---
 
 ### 🔍 Advanced Navigation
 
-Powered by **Telescope.nvim**
+Powered by Telescope.nvim
 
-* fuzzy file search
+* fuzzy search
 * live grep
 * buffer navigation
 * recent files
 
 ---
 
-### 🧠 AI Coding Assistant
+### 🧠 AI Assistance
 
-Integrated **GitHub Copilot**
+Integrated GitHub Copilot
 
 * inline suggestions
-* ergonomic acceptance keymaps
-* safe loading
+* smart acceptance keys
+* safe lazy loading
 
 ---
 
-### 🎨 Modern UI System
+### 🎨 Modern UI
 
 * TokyoNight theme
 * dashboard startup screen
-* dynamic statusline
-* buffer tabs
+* statusline & buffer tabs
 * smooth scrolling
 * git indicators
 * autopairs
-* keymap helper popups
+* keymap hints
 
 ---
 
-### 📁 Sidebar & Terminal (IDE-style)
+### 📁 Sidebar & Terminal
 
-* **nvim-tree.lua**
-
-  * adaptive sidebar
-  * git icons
-  * collapsible navigation
-
-* **toggleterm.nvim**
-
-  * floating or bottom terminal
-  * resizable sessions
-  * persistent workflow
-
----
-
-![python overview](./screenshots/nvim-py.png)
+* nvim-tree.lua → adaptive sidebar with icons & git info
+* toggleterm.nvim → floating or bottom terminal sessions
 
 ---
 
 ### 🧬 Syntax Intelligence
 
-Powered by **nvim-treesitter**
+Powered by nvim-treesitter
 
 * modern highlighting
-* incremental selection
-* indentation awareness
+* smart indentation
+* structural awareness
 
 ---
+
+![python overview](./screenshots/nvim-py.png)
 
 ![neovim config overview](./screenshots/nvim1.png)
 
@@ -104,70 +100,89 @@ Powered by **nvim-treesitter**
 
 ---
 
-## 📦 Prerequisites (Cross-Platform)
+# 📚 Documentation & Learning
 
-Install core dependencies:
+This configuration is meant to be **learnable and hackable**.
 
-### 🐧 Arch Linux
+Core editor documentation
+→ https://neovim.io/doc/
 
-```bash
+Plugin manager guide
+→ https://github.com/folke/lazy.nvim
+
+Search & navigation
+→ https://github.com/nvim-telescope/telescope.nvim
+
+Syntax engine
+→ https://github.com/nvim-treesitter/nvim-treesitter
+
+File explorer
+→ https://github.com/nvim-tree/nvim-tree.lua
+
+Terminal manager
+→ https://github.com/akinsho/toggleterm.nvim
+
+AI assistant
+→ https://docs.github.com/copilot
+
+---
+
+# 📦 Prerequisites (Cross-Platform)
+
+Install core tools:
+
+### Arch Linux
+
+```
 sudo pacman -S neovim ripgrep fd git
 ```
 
-### 🐧 Fedora
+### Fedora
 
-```bash
+```
 sudo dnf install neovim ripgrep fd-find git
 ```
 
-### 🐧 Debian / Ubuntu
+### Debian / Ubuntu
 
-```bash
+```
 sudo apt install neovim ripgrep fd-find git
 ```
 
-### 🪟 Windows
+### Windows (PowerShell)
 
-Install:
-
-* Neovim (official installer or winget)
-* Git
-* ripgrep
-* fd
-
-Example (PowerShell):
-
-```powershell
+```
 winget install Neovim.Neovim Git.Git BurntSushi.ripgrep sharkdp.fd
 ```
 
 Python LSP:
 
-```bash
+```
 npm install -g pyright
 ```
 
 ---
 
-## 🚀 Installation
+# 🚀 Installation
 
-Clone into your Neovim config directory:
+👉 Click to clone the repository:
+https://github.com/monamijer/nvim-conf
 
 ### Linux / macOS
 
-```bash
+```
 git clone https://github.com/monamijer/nvim-conf.git ~/.config/nvim
 ```
 
 ### Windows
 
-```powershell
-git clone https://github.com/monamijer/nvim-conf.git $env:LOCALAPPDATA\nvim
+```
+git clone https://github.com/monamijer/nvim-conf.git %LOCALAPPDATA%\nvim
 ```
 
 Launch Neovim:
 
-```bash
+```
 nvim
 ```
 
@@ -175,7 +190,7 @@ Plugins install automatically on first run.
 
 ---
 
-## ⌨️ Keybindings Overview
+# ⌨ Keybindings Overview
 
 Leader key → **Space**
 
@@ -187,16 +202,16 @@ Leader key → **Space**
 | `<leader>fg` | Live grep      |
 | `<leader>fw` | Search word    |
 | `<leader>fb` | Buffers        |
-| `<C-b>`      | Toggle sidebar |
+| `<C-b>`      | Sidebar toggle |
 
 ### LSP
 
-| Key          | Action           |
-| ------------ | ---------------- |
-| `gd`         | Go to definition |
-| `K`          | Hover docs       |
-| `<leader>rn` | Rename           |
-| `<leader>ca` | Code actions     |
+| Key          | Action      |
+| ------------ | ----------- |
+| `gd`         | Definition  |
+| `K`          | Hover docs  |
+| `<leader>rn` | Rename      |
+| `<leader>ca` | Code action |
 
 ### Terminal
 
@@ -206,25 +221,24 @@ Leader key → **Space**
 
 ### Editing
 
-| Key               | Action            |
-| ----------------- | ----------------- |
-| `<C-s>`           | Save              |
-| `<C-z>` / `<C-y>` | Undo / redo       |
-| Copilot key       | Accept suggestion |
+| Key               | Action      |
+| ----------------- | ----------- |
+| `<C-s>`           | Save        |
+| `<C-z>` / `<C-y>` | Undo / redo |
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```
 ~/.config/nvim/
-├── init.lua                      # Main entry point loaded by Neovim
-├── lazy-lock.json                # Lazy.nvim lockfile
-├── coc-settings.json             # Copilot / CoC settings
-├── README.md                     # Project documentation
-├── LICENSE                       # License file
-├── screenshots/                  # UI and showcase screenshots
-└── lua/                          # Lua configuration modules
+├── init.lua
+├── lazy-lock.json
+├── coc-settings.json
+├── README.md
+├── LICENSE
+├── screenshots/
+└── lua/
       ├── core/
       │   ├── keymaps.lua
       │   ├── options.lua
@@ -236,60 +250,73 @@ Leader key → **Space**
 
 ---
 
-## 🐛 Troubleshooting
+# 🐛 Support & Troubleshooting
 
-If something breaks:
+Inside Neovim run:
 
 ```
 :Lazy sync
 :checkhealth
 ```
 
-Common fixes:
+If issues persist:
 
 * update Neovim
 * reinstall dependencies
 * clear plugin cache
 
-Report issues on GitHub with:
+👉 **Report bugs / request help:**
+https://github.com/monamijer/nvim-conf/issues
 
-* OS version
+Please include:
+
+* OS
 * Neovim version
-* error message
+* error messages
 
 ---
 
-## 🤝 Contributing
+# 🤝 Contributing
 
-All contributions are welcome:
+Contributions are welcome!
 
-1. Fork repository
-2. Create feature branch
+1. Fork the repository
+2. Create a feature branch
 3. Commit changes
 4. Push
-5. Open pull request
+5. Open a pull request
 
-Bug reports and improvements are encouraged.
+Bug fixes, documentation improvements, and ideas are appreciated.
 
 ---
 
-## ✨ Philosophy
+# 📜 License & Copyright
 
-This configuration exists to blend:
+This project is open source under the repository license.
 
-⚡ Neovim speed
-🎨 modern UI polish
-🧠 IDE intelligence
-🚀 developer ergonomics
+See:
 
-while remaining:
+LICENSE → included in this repository
+
+---
+
+# ✨ Philosophy
+
+This configuration merges:
+
+⚡ Neovim performance
+🎨 modern IDE aesthetics
+🧠 developer intelligence
+🚀 ergonomic workflow
+
+while staying:
 
 ✔ modular
 ✔ hackable
+✔ beginner-friendly
 ✔ cross-platform
-✔ lightweight
 
-Make it yours. Build on it. Experiment.
+Make it yours. Learn from it. Extend it.
 
 ---
 
