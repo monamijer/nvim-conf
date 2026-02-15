@@ -1,10 +1,10 @@
-# 🚀 Modern Neovim IDE Config (Arch Linux Based)
+# 🚀 Modern Neovim IDE Config
 
 A modular, fast, and aesthetics-focused Neovim configuration built with **Neovim** and **Lazy.nvim**.
 
-This setup aims to feel like a **next-generation IDE** — smooth, dynamic, visually rich — while staying lightweight and hackable.
+This setup aims to feel like a **next-generation IDE** — smooth, dynamic, visually rich — while staying lightweight, hackable, and cross-platform.
 
-It now includes:
+It is designed for developers who want:
 
 ✅ VS Code-like sidebar & terminal behavior
 ✅ Smooth animations
@@ -23,44 +23,44 @@ It now includes:
 
 ### ⚡ Core IDE Experience
 
-* **Plugin Manager**: Lazy.nvim — ultra fast startup & lazy loading
-* **LSP Integration** — IDE-style diagnostics, navigation & refactoring
-* **Python Support** via Pyright (type checking + completion)
+* Ultra-fast plugin management via Lazy.nvim
+* LSP integration for diagnostics & refactoring
+* Python development via Pyright
+* Smart editing workflow
 
 ---
 
 ### 🔍 Advanced Navigation
 
-* **Telescope.nvim**
+Powered by **Telescope.nvim**
 
-  * fuzzy file search
-  * live grep
-  * buffer navigation
-  * recent files
+* fuzzy file search
+* live grep
+* buffer navigation
+* recent files
 
 ---
 
 ### 🧠 AI Coding Assistant
 
-* **GitHub Copilot**
+Integrated **GitHub Copilot**
 
-  * inline suggestions
-  * smart acceptance keymaps
-  * safe loading
+* inline suggestions
+* ergonomic acceptance keymaps
+* safe loading
 
 ---
 
 ### 🎨 Modern UI System
 
-* **TokyoNight theme**
-* Dashboard welcome screen
-* Dynamic statusline
-* Buffer tabs
-* Scroll animations
-* Visual git indicators
-* Treesitter highlighting & smart indentation
-* Autopairs
-* Keymap helper popups
+* TokyoNight theme
+* dashboard startup screen
+* dynamic statusline
+* buffer tabs
+* smooth scrolling
+* git indicators
+* autopairs
+* keymap helper popups
 
 ---
 
@@ -68,15 +68,15 @@ It now includes:
 
 * **nvim-tree.lua**
 
-  * adaptive width
-  * icons + git status
+  * adaptive sidebar
+  * git icons
   * collapsible navigation
 
 * **toggleterm.nvim**
 
   * floating or bottom terminal
-  * resizable
-  * persistent sessions
+  * resizable sessions
+  * persistent workflow
 
 ---
 
@@ -86,11 +86,11 @@ It now includes:
 
 ### 🧬 Syntax Intelligence
 
-* **nvim-treesitter**
+Powered by **nvim-treesitter**
 
-  * modern highlighting
-  * incremental selection
-  * indentation awareness
+* modern highlighting
+* incremental selection
+* indentation awareness
 
 ---
 
@@ -104,15 +104,46 @@ It now includes:
 
 ---
 
-## 📦 Prerequisites
+## 📦 Prerequisites (Cross-Platform)
 
-Install dependencies on Arch Linux:
+Install core dependencies:
+
+### 🐧 Arch Linux
 
 ```bash
-# Core tools
 sudo pacman -S neovim ripgrep fd git
+```
 
-# Python LSP server
+### 🐧 Fedora
+
+```bash
+sudo dnf install neovim ripgrep fd-find git
+```
+
+### 🐧 Debian / Ubuntu
+
+```bash
+sudo apt install neovim ripgrep fd-find git
+```
+
+### 🪟 Windows
+
+Install:
+
+* Neovim (official installer or winget)
+* Git
+* ripgrep
+* fd
+
+Example (PowerShell):
+
+```powershell
+winget install Neovim.Neovim Git.Git BurntSushi.ripgrep sharkdp.fd
+```
+
+Python LSP:
+
+```bash
 npm install -g pyright
 ```
 
@@ -122,11 +153,16 @@ npm install -g pyright
 
 Clone into your Neovim config directory:
 
+### Linux / macOS
+
 ```bash
 git clone https://github.com/monamijer/nvim-conf.git ~/.config/nvim
+```
 
-# or SSH
-git clone git@github.com:monamijer/nvim-cong.git ~/.config/nvim
+### Windows
+
+```powershell
+git clone https://github.com/monamijer/nvim-conf.git $env:LOCALAPPDATA\nvim
 ```
 
 Launch Neovim:
@@ -139,11 +175,11 @@ Plugins install automatically on first run.
 
 ---
 
-## ⌨️ Keybindings
+## ⌨️ Keybindings Overview
 
-Leader key = **Space**
+Leader key → **Space**
 
-### Navigation & Search
+### Navigation
 
 | Key          | Action         |
 | ------------ | -------------- |
@@ -153,34 +189,28 @@ Leader key = **Space**
 | `<leader>fb` | Buffers        |
 | `<C-b>`      | Toggle sidebar |
 
----
-
-### LSP IDE Controls
+### LSP
 
 | Key          | Action           |
 | ------------ | ---------------- |
 | `gd`         | Go to definition |
 | `K`          | Hover docs       |
-| `<leader>rn` | Rename symbol    |
+| `<leader>rn` | Rename           |
 | `<leader>ca` | Code actions     |
-
----
 
 ### Terminal
 
-| Key                    | Action          |
-| ---------------------- | --------------- |
-| `<C-\>` or `<leader>t` | Toggle terminal |
+| Key                   | Action          |
+| --------------------- | --------------- |
+| `<C-\>` / `<leader>t` | Toggle terminal |
 
----
+### Editing
 
-### Editing Enhancements
-
-| Key               | Action                    |
-| ----------------- | ------------------------- |
-| `<C-s>`           | Save                      |
-| `<C-z>` / `<C-y>` | Undo / redo               |
-| `<M-l>`           | Accept Copilot suggestion |
+| Key               | Action            |
+| ----------------- | ----------------- |
+| `<C-s>`           | Save              |
+| `<C-z>` / `<C-y>` | Undo / redo       |
+| Copilot key       | Accept suggestion |
 
 ---
 
@@ -198,39 +228,69 @@ Leader key = **Space**
       ├── core/
       │   ├── keymaps.lua
       │   ├── options.lua
-      ├── plugins/
-      │   ├── ui.lua
-      │   ├── lsp.lua
-      │   └── utils.lua
-      
+      └── plugins/
+          ├── ui.lua
+          ├── lsp.lua
+          └── utils.lua
 ```
+
+---
+
+## 🐛 Troubleshooting
+
+If something breaks:
+
+```
+:Lazy sync
+:checkhealth
+```
+
+Common fixes:
+
+* update Neovim
+* reinstall dependencies
+* clear plugin cache
+
+Report issues on GitHub with:
+
+* OS version
+* Neovim version
+* error message
 
 ---
 
 ## 🤝 Contributing
 
-Contributions welcome!
+All contributions are welcome:
 
-1. Fork the repo
-2. Create branch
+1. Fork repository
+2. Create feature branch
 3. Commit changes
 4. Push
-5. Open PR
+5. Open pull request
+
+Bug reports and improvements are encouraged.
 
 ---
 
 ## ✨ Philosophy
 
-This config aims to blend:
+This configuration exists to blend:
 
 ⚡ Neovim speed
 🎨 modern UI polish
 🧠 IDE intelligence
 🚀 developer ergonomics
 
-All without sacrificing modularity or performance.
+while remaining:
+
+✔ modular
+✔ hackable
+✔ cross-platform
+✔ lightweight
+
+Make it yours. Build on it. Experiment.
 
 ---
 
-Enjoy hacking your editor.
-Make it yours. 🚀
+Enjoy hacking your editor 🚀
