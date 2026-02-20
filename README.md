@@ -95,7 +95,7 @@ Powered by [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 
 # 📚 Documentation & Learning
 
-This configuration is meant to be **learnable and hackable**.
+This configuration is open-source, it meant to be **learnable and hackable** from source documentations as below.
 
 * Core editor: [Neovim API Documentation](https://neovim.io/doc/)
 * Plugin manager: [Lazy.nvim Guide](https://github.com/folke/lazy.nvim)
@@ -170,6 +170,10 @@ npm install -g pyright
 
 ```bash
 git clone https://github.com/monamijer/nvim-conf.git ~/.config/nvim
+```
+or if using ssh
+```bash
+git clone git@github.com:monamijer/nvim-conf.git ~/.config/nvim
 ```
 
 ### Windows
