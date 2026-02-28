@@ -294,7 +294,7 @@ Bug fixes, documentation improvements, and ideas are appreciated.
 
 # 📜 License & Copyright
 
-This project is open source under the repository license. See: LICENSE (included)
+This project is open source under the repository license. See: LICENSE (Apache)
 
 ---
 
