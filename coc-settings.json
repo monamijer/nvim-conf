@@ -1,3 +1,14 @@
 {
-  "snippets.ultisnips.pythonPrompt": false
+  "NOTE": "coc-settings.json is kept for legacy compatibility only.",
+  "NOTE2": "This config uses native LSP (nvim-lspconfig + Mason). coc.nvim is NOT loaded.",
+  "suggest.noselect": true,
+  "suggest.enablePreview": true,
+  "suggest.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
+  "diagnostic.displayByAle": false,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextPrefix": "  ● ",
+  "languageserver": {}
 }
