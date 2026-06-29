@@ -1,14 +1,12 @@
 -- =============================================================================
 --  nvim-conf · Next-Generation IDE
 --  Entry Point: init.lua
---  Architecture: modular · lazy-loaded · AI-native · VS-Code-class DX
 -- =============================================================================
 
--- Leader must be set BEFORE lazy.nvim loads any plugin
 vim.g.mapleader      = " "
 vim.g.maplocalleader = " "
 
--- Disable netrw immediately (nvim-tree replaces it entirely)
+-- Disable netrw (nvim-tree replaces it)
 vim.g.loaded_netrw       = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -32,7 +30,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- ---------------------------------------------------------------------------
--- 2. Core modules (no plugins needed — crash-safe via pcall)
+-- 2. Core modules
 -- ---------------------------------------------------------------------------
 local function safe_require(mod)
   local ok, err = pcall(require, mod)
@@ -41,9 +39,9 @@ local function safe_require(mod)
   end
 end
 
-safe_require("core.options")   -- Editor behaviour & appearance
-safe_require("core.autocmds")  -- Autocommands (format-on-save, etc.)
-safe_require("core.keymaps")   -- All keybindings
+safe_require("core.options")
+safe_require("core.autocmds")
+safe_require("core.keymaps")
 
 -- ---------------------------------------------------------------------------
 -- 3. Plugin system
@@ -55,9 +53,15 @@ require("lazy").setup("plugins", {
     colorscheme = { "tokyonight", "habamax" },
   },
 
+  -- FIX: disable luarocks/hererocks (not needed, removes checkhealth warning)
+  rocks = {
+    enabled   = false,
+    hererocks = false,
+  },
+
   checker = {
     enabled   = true,
-    notify    = false,  -- Silent update checks; badge visible in dashboard
+    notify    = false,
     frequency = 3600,
   },
 
@@ -88,6 +92,6 @@ require("lazy").setup("plugins", {
 })
 
 -- ---------------------------------------------------------------------------
--- 4. Workspace / session management (auto-restore last project)
+-- 4. Session management
 -- ---------------------------------------------------------------------------
 safe_require("workspace.sessions")
