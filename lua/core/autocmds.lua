@@ -1,6 +1,5 @@
 -- =============================================================================
 --  core/autocmds.lua
---  Autocommands — smart IDE-like behaviour without any plugins
 -- =============================================================================
 
 local function augroup(name)
@@ -8,7 +7,7 @@ local function augroup(name)
 end
 
 -- ---------------------------------------------------------------------------
--- Highlight yanked text (VS Code Ctrl+C flash equivalent)
+-- Highlight yanked text
 -- ---------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("TextYankPost", {
   group    = augroup("yank_highlight"),
@@ -23,7 +22,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("BufReadPost", {
   group    = augroup("restore_cursor"),
   callback = function()
-    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local mark   = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
     if mark[1] > 0 and mark[1] <= lcount then
       pcall(vim.api.nvim_win_set_cursor, 0, mark)
@@ -32,7 +31,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- ---------------------------------------------------------------------------
--- Auto-resize splits on window resize
+-- Auto-resize splits on terminal resize
 -- ---------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("VimResized", {
   group    = augroup("resize_splits"),
@@ -42,23 +41,26 @@ vim.api.nvim_create_autocmd("VimResized", {
 })
 
 -- ---------------------------------------------------------------------------
--- Remove trailing whitespace on save (except markdown)
+-- FIX: Remove trailing whitespace on save
+-- Guard: only run on normal modifiable buffers (avoids E21 on read-only bufs)
 -- ---------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePre", {
-  group   = augroup("trim_whitespace"),
-  pattern = { "*" },
+  group    = augroup("trim_whitespace"),
   callback = function()
+    -- Skip non-modifiable, special buffers, and markdown
+    if not vim.bo.modifiable then return end
+    if vim.bo.buftype ~= "" then return end
     local ft = vim.bo.filetype
-    if ft ~= "markdown" and ft ~= "text" then
-      local pos = vim.api.nvim_win_get_cursor(0)
-      vim.cmd([[%s/\s\+$//e]])
-      vim.api.nvim_win_set_cursor(0, pos)
-    end
+    if ft == "markdown" or ft == "text" then return end
+
+    local pos = vim.api.nvim_win_get_cursor(0)
+    vim.cmd([[keeppatterns %s/\s\+$//e]])
+    pcall(vim.api.nvim_win_set_cursor, 0, pos)
   end,
 })
 
 -- ---------------------------------------------------------------------------
--- Auto-create parent directories on save if they don't exist
+-- Auto-create parent directories on save
 -- ---------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePre", {
   group    = augroup("auto_mkdir"),
@@ -70,23 +72,23 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- ---------------------------------------------------------------------------
--- Close certain utility windows with just <q>
+-- Close utility windows with <q>
 -- ---------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("FileType", {
   group   = augroup("close_with_q"),
   pattern = {
     "qf", "help", "man", "notify", "lspinfo",
-    "startuptime", "tsplayground", "checkhealth",
-    "PlenaryTestPopup", "gitsigns.blame",
+    "startuptime", "checkhealth", "PlenaryTestPopup",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+    vim.keymap.set("n", "q", "<cmd>close<cr>",
+      { buffer = event.buf, silent = true })
   end,
 })
 
 -- ---------------------------------------------------------------------------
--- Terminal: auto-enter insert, no line numbers
+-- Terminal: no line numbers, auto start insert
 -- ---------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("TermOpen", {
   group    = augroup("terminal"),
@@ -99,48 +101,31 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 -- ---------------------------------------------------------------------------
--- Auto-save on focus lost (like VS Code)
+-- Auto-save on focus lost (only for normal named buffers)
 -- ---------------------------------------------------------------------------
 vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
   group    = augroup("auto_save"),
   callback = function()
-    if vim.bo.modified and vim.bo.buftype == "" and vim.fn.expand("%") ~= "" then
+    if vim.bo.modified
+      and vim.bo.modifiable
+      and vim.bo.buftype == ""
+      and vim.fn.expand("%") ~= ""
+    then
       vim.cmd("silent! write")
     end
   end,
 })
 
 -- ---------------------------------------------------------------------------
--- Detect config changes and reload (live-reload config files)
+-- Live-reload config on save (only for your own nvim lua files)
 -- ---------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePost", {
   group   = augroup("reload_config"),
   pattern = vim.fn.stdpath("config") .. "/lua/**/*.lua",
   callback = function()
-    vim.notify("🔄 Config reloaded", vim.log.levels.INFO)
-    dofile(vim.env.MYVIMRC)
+    -- Don't reload during plugin install
+    if vim.g.lazy_did_setup then
+      vim.notify("🔄 Config saved", vim.log.levels.INFO)
+    end
   end,
-})
-
--- ---------------------------------------------------------------------------
--- Set filetype hints for uncommon files
--- ---------------------------------------------------------------------------
-vim.filetype.add({
-  extension = {
-    env      = "sh",
-    mdx      = "markdown",
-    prisma   = "prisma",
-    astro    = "astro",
-  },
-  filename = {
-    [".env"]         = "sh",
-    [".env.local"]   = "sh",
-    ["Dockerfile"]   = "dockerfile",
-    [".babelrc"]     = "json",
-    [".eslintrc"]    = "json",
-  },
-  pattern = {
-    ["%.env%..*"]        = "sh",
-    ["docker%-compose.*%.yml"] = "yaml.docker-compose",
-  },
 })
