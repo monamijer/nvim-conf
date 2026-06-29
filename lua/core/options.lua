@@ -1,6 +1,5 @@
 -- =============================================================================
 --  core/options.lua
---  All vim.opt settings — sensible defaults for a next-gen IDE
 -- =============================================================================
 
 local opt = vim.opt
@@ -8,72 +7,72 @@ local opt = vim.opt
 -- ---------------------------------------------------------------------------
 -- Appearance
 -- ---------------------------------------------------------------------------
-opt.termguicolors  = true         -- 24-bit RGB colour
-opt.number         = true         -- Absolute line number on current line
-opt.relativenumber = true         -- Relative numbers for fast jump targeting
-opt.cursorline     = true         -- Highlight the active line
-opt.signcolumn     = "yes:2"      -- Always-on gutter (2-wide: LSP + git)
-opt.colorcolumn    = "100"        -- Ruler at 100 chars
-opt.showmode       = false        -- Mode shown in statusline, not command area
-opt.cmdheight      = 0            -- Hide cmdline when not in use (Neovim 0.8+)
-opt.pumheight      = 12           -- Max items in completion popup
-opt.winblend       = 0            -- Opaque floating windows (theme-consistent)
-opt.conceallevel   = 2            -- Hide markup in Markdown/JSON
+opt.termguicolors  = true
+opt.number         = true
+opt.relativenumber = true
+opt.cursorline     = true
+opt.signcolumn     = "yes:2"
+opt.colorcolumn    = "100"
+opt.showmode       = false
+opt.cmdheight      = 0
+opt.pumheight      = 12
+opt.winblend       = 0
+opt.conceallevel   = 2
 
 -- ---------------------------------------------------------------------------
 -- Behaviour
 -- ---------------------------------------------------------------------------
-opt.mouse          = "a"          -- Full mouse support
-opt.clipboard      = "unnamedplus"-- Sync with OS clipboard
-opt.updatetime     = 200          -- Faster CursorHold (diagnostics / git signs)
-opt.timeoutlen     = 300          -- Faster which-key popup
-opt.splitbelow     = true         -- Horizontal splits open below
-opt.splitright     = true         -- Vertical splits open to the right
-opt.scrolloff      = 8            -- Keep 8 lines above/below cursor
-opt.sidescrolloff  = 8            -- Keep 8 cols left/right of cursor
-opt.wrap           = false        -- No line wrapping
-opt.virtualedit    = "block"      -- Free cursor in visual-block mode
-opt.confirm        = true         -- Ask to save instead of failing
-opt.undofile       = true         -- Persistent undo across sessions
-opt.undolevels     = 10000        -- Deep undo history
-opt.backup         = false        -- Don't keep backup files
-opt.swapfile       = false        -- Don't use swapfiles (git is enough)
+opt.mouse          = "a"
+opt.clipboard      = "unnamedplus"
+opt.updatetime     = 200
+opt.timeoutlen     = 300
+opt.splitbelow     = true
+opt.splitright     = true
+opt.scrolloff      = 8
+opt.sidescrolloff  = 8
+opt.wrap           = false
+opt.virtualedit    = "block"
+opt.confirm        = true
+opt.undofile       = true
+opt.undolevels     = 10000
+opt.backup         = false
+opt.swapfile       = false
 
 -- ---------------------------------------------------------------------------
 -- Search
 -- ---------------------------------------------------------------------------
-opt.ignorecase     = true         -- Case-insensitive search…
-opt.smartcase      = true         -- …unless uppercase letter typed
-opt.hlsearch       = true         -- Highlight matches
-opt.incsearch      = true         -- Incremental search
+opt.ignorecase     = true
+opt.smartcase      = true
+opt.hlsearch       = true
+opt.incsearch      = true
 
 -- ---------------------------------------------------------------------------
--- Indentation & Formatting
+-- Indentation
 -- ---------------------------------------------------------------------------
-opt.tabstop        = 2            -- Tab = 2 spaces wide
-opt.shiftwidth     = 2            -- Indent step
+opt.tabstop        = 2
+opt.shiftwidth     = 2
 opt.softtabstop    = 2
-opt.expandtab      = true         -- Convert tabs to spaces
-opt.smartindent    = true         -- Smart auto-indent
-opt.shiftround     = true         -- Round indent to shiftwidth multiple
-opt.formatoptions  = "jcroqlnt"   -- Sensible auto-format flags
+opt.expandtab      = true
+opt.smartindent    = true
+opt.shiftround     = true
+opt.formatoptions  = "jcroqlnt"
 
 -- ---------------------------------------------------------------------------
--- Folding (uses Treesitter when available)
+-- Folding
 -- ---------------------------------------------------------------------------
 opt.foldmethod     = "expr"
 opt.foldexpr       = "nvim_treesitter#foldexpr()"
-opt.foldlevel      = 99           -- Start with all folds open
+opt.foldlevel      = 99
 opt.foldlevelstart = 99
 
 -- ---------------------------------------------------------------------------
 -- Completion
 -- ---------------------------------------------------------------------------
 opt.completeopt    = { "menu", "menuone", "noselect" }
-opt.shortmess:append("c")         -- No completion messages in cmdline
+opt.shortmess:append("c")
 
 -- ---------------------------------------------------------------------------
--- Wild menu / command-line
+-- Wild menu
 -- ---------------------------------------------------------------------------
 opt.wildmode       = "longest:full,full"
 opt.wildignorecase = true
@@ -85,23 +84,54 @@ opt.fileencoding   = "utf-8"
 opt.fixendofline   = true
 
 -- ---------------------------------------------------------------------------
--- Neovim provider: Python / Node (faster startup)
+-- Providers
+-- FIX: explicitly disable unused providers → removes checkhealth warnings
 -- ---------------------------------------------------------------------------
--- Uncomment and set your Python3 path for faster provider detection:
--- vim.g.python3_host_prog = "/usr/bin/python3"
--- Disable providers you don't use:
-vim.g.loaded_python_provider = 0
-vim.g.loaded_ruby_provider   = 0
-vim.g.loaded_perl_provider   = 0
+vim.g.loaded_python_provider = 0   -- Python 2: not used
+vim.g.loaded_ruby_provider   = 0   -- Ruby:     not used
+vim.g.loaded_perl_provider   = 0   -- Perl:     not used
+
+-- Python3: disable if pynvim not installed (avoids warning on startup)
+-- Once you run: pip install neovim --break-system-packages
+-- you can remove the line below
+vim.g.loaded_python3_provider = 0
+
+-- Node: disable if neovim npm package not installed (avoids warning)
+-- Once you run: npm install -g neovim
+-- you can remove the line below
+-- vim.g.loaded_node_provider = 0
 
 -- ---------------------------------------------------------------------------
--- Filetype → tab-width overrides
+-- Filetype-specific tab widths
 -- ---------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "python", "rust", "go" },
+  pattern  = { "python", "rust", "go" },
   callback = function()
-    vim.opt_local.tabstop    = 4
-    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop     = 4
+    vim.opt_local.shiftwidth  = 4
     vim.opt_local.softtabstop = 4
   end,
+})
+
+-- ---------------------------------------------------------------------------
+-- Filetype detection
+-- ---------------------------------------------------------------------------
+vim.filetype.add({
+  extension = {
+    env    = "sh",
+    mdx    = "markdown",
+    prisma = "prisma",
+    astro  = "astro",
+  },
+  filename = {
+    [".env"]       = "sh",
+    [".env.local"] = "sh",
+    ["Dockerfile"] = "dockerfile",
+    [".babelrc"]   = "json",
+    [".eslintrc"]  = "json",
+  },
+  pattern = {
+    ["%.env%..*"]              = "sh",
+    ["docker%-compose.*%.yml"] = "yaml.docker-compose",
+  },
 })
